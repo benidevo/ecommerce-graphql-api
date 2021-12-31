@@ -5,6 +5,7 @@ const typeDefs = gql`
     type Query {
         hello: String
         products: [Product]
+        product(id: ID! ): Product
     }
 
     type Product {
@@ -22,6 +23,9 @@ const resolvers = {
         hello: () => 'Hello world!',
         products: () => {
             return products;
+        },
+        product: (parent, args, context) => {
+            return products.find(product => product.id === args.id);
         }
     }
 }
