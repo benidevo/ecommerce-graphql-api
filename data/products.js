@@ -6,6 +6,7 @@ exports.products = [
         quantity: 230,
         price: 42.44,
         image: 'img-1',
+        categoryId: 'd914aec0-25b2-4103-9ed8-225d39018d1d',
         onSale: false
     },
     {
@@ -60,7 +61,8 @@ exports.products = [
         quantity: 3,
         price: 427.44,
         image: 'img-7',
-        onSale: false
+        onSale: false,
+        categoryId: 'd914aec0-25b2-4103-9ed8-225d39018d1d'
     },
     {
         id: 'b553085a-a7e0-4c9b-8a12-f971919c3683',
