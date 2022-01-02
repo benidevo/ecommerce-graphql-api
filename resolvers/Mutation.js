@@ -102,5 +102,47 @@ exports.Mutation = {
         products[productIndex].categoryId = null;
 
         return `Category with id ${id} deleted`;
+    },
+
+    updateCategory: (parent, {id, categoryName }, { categories }) => {
+        const categoryIndex = categories.findIndex(category => category.id === id);
+        if (categoryIndex === -1) {
+            throw new Error('Category does not exist');
+        }
+        categories[categoryIndex].name = categoryName;
+        return categories[categoryIndex];
+    },
+
+    updateProduct: (parent, { id, input }, { products }) => {
+        const productIndex = products.findIndex(product => product.id === id);
+        if (productIndex === -1) {
+            throw new Error('Product does not exist');
+        }
+        products[productIndex] = {
+            ...products[productIndex],
+            ...input
+        };
+        return products[productIndex];
+    },
+
+    updateProductReview: (parent, { id, input }, { reviews }) => {
+        const reviewIndex = reviews.findIndex(review => review.id === id);
+        if (reviewIndex === -1) {
+            throw new Error('Review does not exist');
+        }
+        reviews[reviewIndex] = {
+            ...reviews[reviewIndex],
+            ...input
+        };
+        return reviews[reviewIndex];
+    },
+
+    deleteProductReview: (parent, { id }, { reviews }) => {
+        const reviewIndex = reviews.findIndex(review => review.id === id);
+        if (reviewIndex === -1) {
+            throw new Error('Review does not exist');
+        }
+        reviews.splice(reviewIndex, 1);
+        return `Review with id ${id} deleted`;
     }
 };
