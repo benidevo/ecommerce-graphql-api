@@ -1,6 +1,9 @@
 exports.Query = {
     hello: () => 'Hello world!',
     products: (parent, args, context) => {
+        if (!args.filter) {
+            return context.products;
+        }
         const { onSale, avgRating } = args.filter;
         if (onSale) {
             return context.products.filter(
@@ -24,8 +27,6 @@ exports.Query = {
 
             return filteredProducts;
         }
-
-        return context.products;
     },
     product: (parent, args, context) => {
         const { products } = context;
