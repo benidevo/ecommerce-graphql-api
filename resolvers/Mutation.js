@@ -63,5 +63,44 @@ exports.Mutation = {
 
         reviews.push(newReview);
         return newReview;
+    },
+
+    deleteProduct: (parent, args, context) => {
+        const { products, reviews } = context;
+        const { id } = args;
+
+        const productIndex = products.findIndex((product) => product.id === id);
+        if (productIndex === -1) {
+            return 'Product does not exist';
+        }
+
+        const reviewIndex = reviews.findIndex(
+            (review) => review.productId === id
+        );
+
+        reviews.splice(reviewIndex, 1);
+
+        products.splice(productIndex, 1);
+        return `Product with id ${id} deleted`;
+    },
+
+    deleteCategory: (parent, args, context) => {
+        const { categories, products } = context;
+        const { id } = args;
+
+        const categoryIndex = categories.findIndex(
+            (category) => category.id === id
+        );
+        if (categoryIndex === -1) {
+            return 'Category does not exist';
+        }
+        categories.splice(categoryIndex, 1);
+
+        const productIndex = products.findIndex(
+            (product) => product.categoryId === id
+        );
+        products[productIndex].categoryId = null;
+
+        return `Category with id ${id} deleted`;
     }
 };

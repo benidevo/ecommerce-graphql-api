@@ -13,6 +13,8 @@ exports.typeDefs = gql`
         addCategory(input: addCategoryInput!): Category
         addProduct(input: addProductInput!): Product
         addProductReview(input: addProductReviewInput!): Review!
+        deleteProduct(id: ID!): String!
+        deleteCategory(id: ID!): String!
     }
 
     type Product {
@@ -67,4 +69,6 @@ exports.typeDefs = gql`
         comment: String!
         rating: Int!
     }
+
+
 `;
