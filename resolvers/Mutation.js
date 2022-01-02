@@ -14,11 +14,21 @@ exports.Mutation = {
     },
 
     addProduct: (parent, args, context) => {
-        const { name, description, quantity, image, price, onSale, categoryId } = args.input;
+        const {
+            name,
+            description,
+            quantity,
+            image,
+            price,
+            onSale,
+            categoryId
+        } = args.input;
         const { products, categories } = context;
-        
+
         // chcek if category exists
-        const category = categories.find(category => category.id === categoryId);
+        const category = categories.find(
+            (category) => category.id === categoryId
+        );
         if (!category) {
             throw new Error('Category does not exist');
         }
@@ -32,9 +42,26 @@ exports.Mutation = {
             price,
             onSale,
             categoryId
-        }
+        };
 
         products.push(newProduct);
         return newProduct;
+    },
+
+    addProductReview: (parent, args, context) => {
+        const { reviews } = context;
+        const { productId, title, comment, rating } = args.input;
+
+        const newReview = {
+            id: uuid(),
+            date: new Date().toISOString(),
+            title,
+            comment,
+            rating,
+            productId
+        };
+
+        reviews.push(newReview);
+        return newReview;
     }
 };
